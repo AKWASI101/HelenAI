@@ -1,0 +1,202 @@
+
+<style>
+  .wf-wrap { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; padding: 16px 0 24px; }
+  .screen-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .screen-label { font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--font-sans); }
+  .phone { width: 160px; height: 310px; border-radius: 22px; border: 1.5px solid var(--color-border-secondary); overflow: hidden; position: relative; background: #fff; flex-shrink: 0; }
+  .statusbar { height: 18px; background: rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: flex-end; padding: 0 10px; gap: 4px; flex-shrink: 0; }
+  .statusbar i { font-size: 9px; color: #888; }
+  .statusbar span { font-size: 8px; color: #888; font-family: var(--font-sans); }
+
+  /* Screen 1 — Knock */
+  .knock-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #66023C; gap: 0; padding-bottom: 12px; }
+  .knock-title { font-family: var(--font-sans); font-size: 22px; font-weight: 600; color: #fff; letter-spacing: 0.12em; margin-bottom: 3px; }
+  .knock-sub { font-size: 9px; color: rgba(255,255,255,0.55); font-family: var(--font-sans); margin-bottom: 18px; }
+  .knock-divider { width: 50px; height: 0.5px; background: rgba(255,255,255,0.2); margin-bottom: 18px; }
+  .knock-icon { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .knock-icon i { font-size: 18px; color: rgba(255,255,255,0.8); }
+  .knock-label { font-size: 8px; color: rgba(255,255,255,0.45); font-family: var(--font-sans); margin-bottom: 24px; }
+  .knock-tap { font-size: 8px; color: rgba(255,255,255,0.35); font-family: var(--font-sans); position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; }
+
+  /* Screen 2 — Chat */
+  .chat-screen { flex: 1; display: flex; flex-direction: column; background: #fff; min-height: 0; }
+  .chat-header { background: #66023C; padding: 8px 10px 7px; display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+  .chat-header-avatar { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; }
+  .chat-header-avatar i { font-size: 11px; color: rgba(255,255,255,0.85); }
+  .chat-header-name { font-size: 11px; font-weight: 500; color: #fff; font-family: var(--font-sans); }
+  .chat-header-status { font-size: 7.5px; color: rgba(255,255,255,0.5); font-family: var(--font-sans); }
+  .chat-messages { flex: 1; overflow: hidden; padding: 8px 8px 0; display: flex; flex-direction: column; gap: 6px; }
+  .bubble-helena { align-self: flex-start; max-width: 80%; background: #fff; border: 0.5px solid #66023C; border-radius: 0 10px 10px 10px; padding: 5px 8px; }
+  .bubble-helena span { font-size: 7.5px; font-family: var(--font-sans); color: #1A1A1A; line-height: 1.4; display: block; }
+  .bubble-helena .btime { font-size: 6.5px; color: #888; margin-top: 2px; text-align: right; }
+  .bubble-user { align-self: flex-end; max-width: 80%; background: #F5E6F0; border-radius: 10px 0 10px 10px; padding: 5px 8px; }
+  .bubble-user span { font-size: 7.5px; font-family: var(--font-sans); color: #1A1A1A; line-height: 1.4; display: block; }
+  .bubble-user .btime { font-size: 6.5px; color: #888; margin-top: 2px; text-align: right; }
+  .chat-input { border-top: 0.5px solid rgba(102,2,60,0.15); padding: 6px 8px; display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .chat-input-field { flex: 1; height: 20px; border-radius: 10px; border: 0.5px solid rgba(102,2,60,0.3); background: #fafafa; font-size: 7.5px; color: #888; font-family: var(--font-sans); display: flex; align-items: center; padding: 0 7px; }
+  .chat-send { width: 20px; height: 20px; border-radius: 50%; background: #66023C; display: flex; align-items: center; justify-content: center; }
+  .chat-send i { font-size: 9px; color: #fff; }
+
+  /* Screen 3 — Waiting */
+  .typing-dots { display: flex; align-items: center; gap: 3px; padding: 6px 8px; }
+  .typing-dots span { width: 5px; height: 5px; border-radius: 50%; background: #66023C; opacity: 0.4; }
+  .bubble-waiting { align-self: flex-start; background: #fff; border: 0.5px solid #66023C; border-radius: 0 10px 10px 10px; padding: 4px 10px; }
+  .send-disabled { width: 20px; height: 20px; border-radius: 50%; background: #ccc; display: flex; align-items: center; justify-content: center; }
+  .send-disabled i { font-size: 9px; color: #fff; }
+
+  /* Screen 4 — Error */
+  .bubble-error { align-self: flex-start; max-width: 88%; background: #fff; border: 0.5px solid #E24B4A; border-radius: 0 10px 10px 10px; padding: 5px 8px; }
+  .bubble-error span { font-size: 7.5px; font-family: var(--font-sans); color: #1A1A1A; line-height: 1.4; display: block; }
+  .bubble-error .etag { font-size: 6px; color: #A32D2D; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500; }
+
+  /* Annotation callouts */
+  .callout-wrap { position: relative; width: 160px; }
+  .callout { font-size: 8px; color: var(--color-text-secondary); font-family: var(--font-sans); line-height: 1.4; background: var(--color-background-secondary); border-left: 2px solid rgba(102,2,60,0.4); padding: 3px 6px; border-radius: 0 4px 4px 0; }
+</style>
+<h2 class="sr-only">Helena chatbot wireframes showing all four screen states: knock screen, chat screen, waiting state, and error state</h2>
+<div class="wf-wrap">
+
+  <!-- Screen 1: Knock -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="statusbar"><i class="ti ti-wifi" aria-hidden="true"></i><i class="ti ti-battery" aria-hidden="true"></i><span>9:41</span></div>
+      <div class="knock-screen">
+        <div class="knock-title">HELENA</div>
+        <div class="knock-sub">your rude friend</div>
+        <div class="knock-divider"></div>
+        <div class="knock-icon"><i class="ti ti-hand-stop" aria-hidden="true"></i></div>
+        <div class="knock-label">knock</div>
+        <div class="knock-tap">tap anywhere to enter</div>
+      </div>
+    </div>
+    <div class="screen-label">1 — Knock screen</div>
+    <div style="display:flex;flex-direction:column;gap:4px;width:160px">
+      <div class="callout">bg: #66023C Tyrian Purple</div>
+      <div class="callout">click → scale+shake anim ~800ms</div>
+      <div class="callout">session_id = crypto.randomUUID() on tap</div>
+      <div class="callout">fade out → chat screen</div>
+    </div>
+  </div>
+
+  <!-- Screen 2: Chat (normal) -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="statusbar"><i class="ti ti-wifi" aria-hidden="true"></i><i class="ti ti-battery" aria-hidden="true"></i><span>9:41</span></div>
+      <div class="chat-screen">
+        <div class="chat-header">
+          <div class="chat-header-avatar"><i class="ti ti-user" aria-hidden="true"></i></div>
+          <div>
+            <div class="chat-header-name">Helena</div>
+            <div class="chat-header-status">online · probably judging you</div>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="bubble-helena">
+            <span>ugh, what do you want</span>
+            <div class="btime">9:41</div>
+          </div>
+          <div class="bubble-user">
+            <span>hey can you help me</span>
+            <div class="btime">9:41</div>
+          </div>
+          <div class="bubble-helena">
+            <span>oh my god, really? fine. what is it now.</span>
+            <div class="btime">9:42</div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <div class="chat-input-field">Message Helena...</div>
+          <div class="chat-send"><i class="ti ti-send" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">2 — Chat screen</div>
+    <div style="display:flex;flex-direction:column;gap:4px;width:160px">
+      <div class="callout">header: #66023C</div>
+      <div class="callout">user bubble: #F5E6F0 right-aligned</div>
+      <div class="callout">Helena bubble: white + purple border, left-aligned</div>
+      <div class="callout">auto-scroll to latest message</div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Waiting -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="statusbar"><i class="ti ti-wifi" aria-hidden="true"></i><i class="ti ti-battery" aria-hidden="true"></i><span>9:42</span></div>
+      <div class="chat-screen">
+        <div class="chat-header">
+          <div class="chat-header-avatar"><i class="ti ti-user" aria-hidden="true"></i></div>
+          <div>
+            <div class="chat-header-name">Helena</div>
+            <div class="chat-header-status">typing...</div>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="bubble-helena">
+            <span>ugh, what do you want</span>
+            <div class="btime">9:41</div>
+          </div>
+          <div class="bubble-user">
+            <span>what's the weather today</span>
+            <div class="btime">9:42</div>
+          </div>
+          <div class="bubble-waiting">
+            <div class="typing-dots">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <div class="chat-input-field" style="opacity:0.5">Message Helena...</div>
+          <div class="send-disabled"><i class="ti ti-send" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">3 — Waiting state</div>
+    <div style="display:flex;flex-direction:column;gap:4px;width:160px">
+      <div class="callout">animated dots in Helena bubble</div>
+      <div class="callout">send button disabled + greyed</div>
+      <div class="callout">header status: "typing..."</div>
+      <div class="callout">POST /chat in flight</div>
+    </div>
+  </div>
+
+  <!-- Screen 4: Error -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="statusbar"><i class="ti ti-wifi" aria-hidden="true"></i><i class="ti ti-battery" aria-hidden="true"></i><span>9:43</span></div>
+      <div class="chat-screen">
+        <div class="chat-header">
+          <div class="chat-header-avatar"><i class="ti ti-user" aria-hidden="true"></i></div>
+          <div>
+            <div class="chat-header-name">Helena</div>
+            <div class="chat-header-status" style="color:rgba(255,255,255,0.5)">online</div>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="bubble-user">
+            <span>are you there?</span>
+            <div class="btime">9:43</div>
+          </div>
+          <div class="bubble-error">
+            <div class="etag"><i class="ti ti-alert-triangle" aria-hidden="true"></i> api error</div>
+            <span>even my server is embarrassed to deal with you right now. try again.</span>
+            <div class="btime" style="color:#A32D2D">9:43</div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <div class="chat-input-field">Message Helena...</div>
+          <div class="chat-send"><i class="ti ti-send" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">4 — Error state</div>
+    <div style="display:flex;flex-direction:column;gap:4px;width:160px">
+      <div class="callout">Helena bubble with red border</div>
+      <div class="callout">snarky error message in Helena's voice</div>
+      <div class="callout">send re-enabled — user can retry</div>
+      <div class="callout">triggered on Gemini 503 / timeout</div>
+    </div>
+  </div>
+
+</div>

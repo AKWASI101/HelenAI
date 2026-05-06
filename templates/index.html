@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Helena — your rude, chaotic AI friend powered by Gemini.">
+    <title>Helena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================================================================
+         KNOCK SCREEN
+         ================================================================ -->
+    <div id="knock-screen">
+        <h1 class="knock-title">Helena</h1>
+        <p class="knock-subtitle">your favourite friend</p>
+        <div class="knock-divider"></div>
+
+        <!-- Knock icon + pulse ring -->
+        <div class="knock-icon-ring">
+            <!-- Hand/knock SVG icon -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 11V9a7 7 0 0 0-14 0v2" />
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <circle cx="12" cy="16" r="1" />
+            </svg>
+        </div>
+        <div class="knock-pulse" aria-hidden="true"></div>
+        <p class="knock-label">knock</p>
+        <p class="knock-hint">tap anywhere to enter</p>
+    </div>
+
+
+    <!-- ================================================================
+         CHAT SCREEN  (hidden until knock completes)
+         ================================================================ -->
+    <div id="chat-screen">
+
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="chat-header-avatar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+            </div>
+            <div class="chat-header-info">
+                <span class="chat-header-name">Helena</span>
+                <span id="header-status" class="chat-header-status">online · probably judging you</span>
+            </div>
+        </header>
+
+        <!-- Messages -->
+        <div id="chat-messages" class="chat-messages">
+            <!-- Bubbles rendered here by JS -->
+        </div>
+
+        <!-- Input bar -->
+        <div class="chat-input-bar">
+            <input type="text" id="message-input" placeholder="What do you want?" autocomplete="off"
+                maxlength="500">
+            <button id="send-btn" type="button" aria-label="Send message">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
