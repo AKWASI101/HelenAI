@@ -17,6 +17,17 @@
   const sendBtn       = document.getElementById("send-btn");
   const headerStatus  = document.getElementById("header-status");
 
+  // Fetch visitor count
+  fetch("/visit-count")
+      .then(res => res.json())
+      .then(data => {
+          const el = document.getElementById("visitor-count");
+          if (el && data.count !== null) el.textContent = data.count;
+      })
+      .catch(() => {
+          document.getElementById("visitor-count").textContent = "—";
+      });
+
   // -----------------------------------------------------------------------
   // State
   // -----------------------------------------------------------------------

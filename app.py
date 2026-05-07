@@ -5,6 +5,7 @@ Flask application with routes and session logic.
 
 from flask import Flask, render_template, request, jsonify
 from gemini import get_reply
+from db import increment_visit, get_visit_count
 
 app = Flask(__name__)
 
@@ -36,7 +37,14 @@ def update_history(session_id, user_msg, model_reply):
 @app.route("/")
 def index():
     """Serve the single-page UI."""
+    increment_visit()
     return render_template("index.html")
+
+
+@app.route("/visit-count")
+def visit_count():
+    count = get_visit_count()
+    return jsonify({"count": count})
 
 
 @app.route("/chat", methods=["POST"])

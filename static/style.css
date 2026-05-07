@@ -251,6 +251,28 @@ html, body {
   font-weight: 400;
 }
 
+.visitor-badge {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.visitor-badge svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.75);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 /* --- Messages container --- */
 .chat-messages {
   flex: 1;
